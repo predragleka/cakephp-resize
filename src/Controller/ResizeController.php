@@ -31,6 +31,7 @@ class ResizeController extends AppController
 
         if($this->_checkFile($cacheFilename)){
             $cacheFilename = Image::open($filename)
+            ->setFallback((!empty($this->config['fallback']) ? $this->config['fallback'] : null))
             ->zoomCrop($size[0], $size[1], 'transparent', 'center', 'center')
             ->save($cacheFilename);
             $this->redirect('/'.$cacheFilename);
